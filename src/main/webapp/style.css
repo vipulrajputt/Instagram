@@ -1,0 +1,13 @@
+  .logoinsta {
+  	text-align:center;
+    background: cover no-repeat;
+    width:175px;
+    height:auto;
+    margin:0 auto;
+  }
+.textinsta {
+  text-align:center;
+  margin:15px;
+  color:#262626;
+  font-size:14px;
+}
