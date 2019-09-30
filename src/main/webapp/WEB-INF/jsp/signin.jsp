@@ -46,8 +46,7 @@
 							alt="Instagram">
 					</div>
 					<div id="info"></div>
-					<form:form name="formuser" action="signin" modelAttribute="newuser"
-						method="POST" class="form-validate">
+					<form:form name="formuser" modelAttribute="newuser"	action="newsignin" method="POST" class="form-validate">
 						<div class="form-group">
 							<form:input path="username" type="text" id="name" aria-describedby="" autocomplete="off"
 								placeholder="username" aria-required="true" maxlength="30" autocapitalize="off"
@@ -59,8 +58,7 @@
 								required="required" class="form-control" />
 						</div>
 						<!-- Submit-->
-						<button class="btn btn-lg btn-block btn-secondary">Sign
-							in</button>
+						<input type="submit" class="btn btn-lg btn-block btn-secondary" value="Sign In" onclick="doAjaxPost()">
 						<button class="btn btn-lg btn-block textinsta">Forget
 							Password?</button>
 					</form:form>
@@ -77,6 +75,7 @@
 		</div>
 	</div>
 	<!-- JavaScript files-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 	<script>
 		// ------------------------------------------------------- //
 		//   Inject SVG Sprite - 
@@ -102,33 +101,26 @@
 		injectSvgSprite('https://demo.bootstrapious.com/directory/1-2/icons/orion-svg-sprite.52f2f033.svg');
 	</script>
 	<script type="text/javascript">
+	function doAjaxPost() {
 	$(document).ready(function() {
-		   
-		  $('#formuser').submit(function(event) {
-			  	
-			  	var username = $('#username').val();
-	            var password = $('#password').val();
-	            var json={"username" : username , "password" :password};
-		    $.ajax({
-		    	 type: "POST",
-		    	 url: $("#formuser").attr("action"),
-		    	 data: JSON.stringify(json),
-		         type: "POST",
-		         
-		        beforeSend: function(xhr) {
-		            xhr.setRequestHeader("Accept", "application/json");
-		            xhr.setRequestHeader("Content-Type", "application/json");
-		        },
-		        success: function() {
-		            var respContent = "User has been added";
-		            $("#info").html(respContent);         
-		        }
-		    });
-		      
-		    event.preventDefault();
-		  });
-		    
-		});
+          	var username = $('#username').val();
+	        var password = $('#password').val();
+            $.ajax({
+            	type: "POST",
+            	url: "newsignin",
+            	data: {"username" : username , "password" :password},
+            	success: function(response){
+            		var respContent = "User has been added";
+           			$('#info').html(response);
+            		$('#password').val('');
+            		$('#username').val('');
+            	},
+            	error: function(e){
+            		alert('Error: ' + e);
+            	}
+            });
+       });
+    }
 	</script>
 	<!-- jQuery-->
 	<script

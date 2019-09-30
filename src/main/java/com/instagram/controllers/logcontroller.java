@@ -71,7 +71,7 @@ public class logcontroller {
 	{
 		return "signin";
 	}
-	@RequestMapping(value="signin",method=RequestMethod.POST)
+	@RequestMapping(value="newsignin",method=RequestMethod.POST)
 	public @ResponseBody String login(@ModelAttribute newuser n,HttpServletRequest r) throws IOException {
 		try
 		{
