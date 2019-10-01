@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,8 +72,21 @@ public class logcontroller {
 	{
 		return "signin";
 	}
-	@RequestMapping(value="newsignin",method=RequestMethod.POST)
-	public @ResponseBody String login(@ModelAttribute newuser n,HttpServletRequest r) throws IOException {
+	@RequestMapping(value="/signin",method=RequestMethod.POST)
+	public @ResponseBody String login(@ModelAttribute newuser n, BindingResult result ){
+        String returnText;
+        System.out.print(n.getUsername());
+        System.out.print(n.getPassword());
+        if(!result.hasErrors()){
+        	List <newuser> list=jc.getlogin(n);
+            System.out.print(list.size());
+            returnText = "User has been added to the list.";
+        }else{
+            returnText = "Sorry, an error has occur. User has not been added to list.";
+        }
+        return returnText;
+    }/*HttpServletRequest r) throws IOException {
+    
 		try
 		{
 			ecipher = Cipher.getInstance("DES");
@@ -97,7 +111,7 @@ public class logcontroller {
 		else {
 			return "you are not authenticated";
 		}
-	}
+	}*/
 	public static String encrypt(String str) {
 
 		try {

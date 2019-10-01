@@ -46,22 +46,22 @@
 							alt="Instagram">
 					</div>
 					<div id="info"></div>
-					<form:form name="formuser" modelAttribute="newuser"	action="newsignin" method="POST" class="form-validate">
+					<form name="formuser" modelAttribute="newuser" method="POST" class="form-validate">
 						<div class="form-group">
-							<form:input path="username" type="text" id="name" aria-describedby="" autocomplete="off"
-								placeholder="username" aria-required="true" maxlength="30" autocapitalize="off"
-								autocorrect="off" class="form-control" name="username" value="" required="required"/>
+							<input type="text" id="username" aria-describedby="" autocomplete="off"
+								placeholder="Username" aria-required="true" maxlength="30" autocapitalize="off"
+								autocorrect="off" class="form-control" name="username" value="" required="required">
 						</div>
 						<div class="form-group">
-							<form:input path="username" type="password" name="password" id="password" placeholder="Password" aria-describedby="" maxlength="30"
+							<input type="password" name="password" id="password" placeholder="Password" aria-describedby="" maxlength="30"
 								aria-required="true" autocapitalize="off" autocorrect="off"
-								required="required" class="form-control" />
+								required="required" class="form-control">
 						</div>
 						<!-- Submit-->
 						<input type="submit" class="btn btn-lg btn-block btn-secondary" value="Sign In" onclick="doAjaxPost()">
 						<button class="btn btn-lg btn-block textinsta">Forget
 							Password?</button>
-					</form:form>
+					</form>
 					<a href="index.jsp" class="close-absolute mr-md-5 mr-xl-6 pt-5">
 						<svg class="svg-icon w-3rem h-3rem" style="color: black">
                 <use xlink:href="#close-1"> </use>
@@ -104,11 +104,13 @@
 	function doAjaxPost() {
 	$(document).ready(function() {
           	var username = $('#username').val();
+          	console.log(username);
 	        var password = $('#password').val();
-            $.ajax({
+	        console.log(password);
+	        $.ajax({
             	type: "POST",
-            	url: "newsignin",
-            	data: {"username" : username , "password" :password},
+            	url: "${pageContext.request.contextPath}/newsignin",
+            	data: {"username" : username , "password" : password},
             	success: function(response){
             		var respContent = "User has been added";
            			$('#info').html(response);
